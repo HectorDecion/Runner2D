@@ -9,6 +9,7 @@ public class TestColider : MonoBehaviour
     {
         Debug.Log("Colision Detectada");
         Destroy(collision.gameObject);
+      
         // Aqui es donde puedes agregar cualquier accion que quieras realizar cuando ocurra una colision
 
     }
