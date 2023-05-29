@@ -38,15 +38,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(this.transform.position, Vector2.down * 2.0f, Color.red);
-
-
     }
  
     private void FixedUpdate()
     {
-        if(playerRB.velocity.x < runningSpeed
-            
-            )
+        if(playerRB.velocity.x < runningSpeed)
+
         {
             playerRB.velocity = new Vector2(runningSpeed, playerRB.velocity.y);
 
@@ -92,12 +89,20 @@ public class PlayerMovement : MonoBehaviour
             return false; 
         }
     }
+    public void ResetGame()
+    {
+        //  this.transform.position = startPosition;
+        //  this.playerRB.velocity = Vector2.zero;
+        //  GameManager.sharedInstance.StartGame();
+        GameManager.sharedInstance.GameOver();
+        SceneManager.LoadScene(2);
+    }
     public void Die()
     {
         //Animaciones die
-        GameManager.sharedInstance.GameOver();
+     //GameManager.sharedInstance.GameOver();   //Quite esto para ver si solucionaba el error
        
-        StartGame();
+       ResetGame();
         
     }
 

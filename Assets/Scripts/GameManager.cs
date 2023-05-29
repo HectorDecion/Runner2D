@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -15,8 +16,9 @@ public class GameManager : MonoBehaviour
     #region Singleton
     public static GameManager sharedInstance;
     #endregion
-    [SerializeField] GameState currentGameState;
+ //   [SerializeField] GameState currentGameState;
     private PlayerMovement movement;
+  //  private EnemyMovement enemymovement;
     private void Awake()
     {
         #region Singleton
@@ -27,8 +29,10 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        currentGameState = GameState.gameOver;
+      //  currentGameState = GameState.gameOver;
         movement = GameObject.Find("Player").GetComponent<PlayerMovement>(); //Find ocupa mucho en la memoria no usar mucho, tal vez usar referencias pero otra cosa
+     //   enemymovement = GameObject.Find("Warrior").GetComponent<EnemyMovement>();
+        //     SceneManager.LoadScene(0); //BORRA ESTO SI NO SIRVE ES PARA EMPEZAR EN MENU
     }
 
 
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviour
     else if(newGameState == GameState.gameOver)
         {
             // Panel de Muerte
+            MenuManager.sharedInstance.ShowPauseCanvas();
         }
     }
     }

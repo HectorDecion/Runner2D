@@ -11,7 +11,7 @@ public class StartMenu : MonoBehaviour
 
     public void NextScene()
     {
-        GameManager.sharedInstance.StartGame();
+     //   GameManager.sharedInstance.StartGame(); Cuidado con este error si lo activas el singleton no dejara que regrese de main menu
         SceneManager.LoadScene(1);
     }
 }
