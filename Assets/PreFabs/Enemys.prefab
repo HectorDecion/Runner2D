@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 7649133419287531010}
   - component: {fileID: 7649133419287531011}
   - component: {fileID: 7649133419287531015}
-  - component: {fileID: 7649133419287531014}
+  - component: {fileID: 4825817983024508539}
   m_Layer: 6
   m_Name: Warrior
   m_TagString: Untagged
@@ -259,6 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc0243b3cd786e408388c25f5fff052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocidadx: 200
+  velocidady: 2
 --- !u!50 &7649133419287531015
 Rigidbody2D:
   serializedVersion: 4
@@ -271,7 +273,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -280,7 +282,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7649133419287531014
+--- !u!114 &4825817983024508539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,7 +291,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7649133419287531021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f05ce7d5d16ae804b99df3b679f4d853, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e5b852e0752de43a2b7a2e92618f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7649133419600635693

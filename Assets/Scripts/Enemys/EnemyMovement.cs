@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private float velocidadx = 2f;
-    private float velocidady = 2f;
+    public float velocidadx = 500f;
+    public float velocidady = 0f;
     private Animator animator;
     private Rigidbody2D enemyRB;
 

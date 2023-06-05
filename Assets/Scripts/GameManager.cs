@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.SceneManagement;
 
 public enum GameState
@@ -12,6 +13,7 @@ public enum GameState
     gameOver
 }
 public class GameManager : MonoBehaviour
+
 {
     #region Singleton
     public static GameManager sharedInstance;
@@ -24,9 +26,10 @@ public class GameManager : MonoBehaviour
         #region Singleton
         if (sharedInstance == null)
             sharedInstance = this;
+
         #endregion
         
-    }
+    }public static GameManager Instance { get; private set; }
     void Start()
     {
       //  currentGameState = GameState.gameOver;
@@ -44,6 +47,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int vidas = 3;
+    public HUD hud;
+    public int PuntosTotales { get; private set; }
+   
     public void StartGame()
     {
         SetGameState(GameState.inGame);
@@ -81,6 +88,34 @@ public class GameManager : MonoBehaviour
             MenuManager.sharedInstance.ShowPauseCanvas();
         }
     }
+    public void SumarPuntos(int puntosASumar)
+    {
+        PuntosTotales += puntosASumar;
+        hud.ActualizarPuntos(PuntosTotales);
     }
+    public void PerderVida()
+    {
+        vidas -= 1;
+
+        if (vidas == 0)
+        {
+            // Reiniciamos el nivel.
+            SceneManager.LoadScene(0);
+        }
+
+        hud.DesactivarVida(vidas);
+    }
+    public bool RecuperarVida()
+    {
+        if (vidas == 3)
+        {
+            return false;
+        }
+
+        hud.ActivarVida(vidas);
+        vidas += 1;
+        return true;
+    }
+}
 
 

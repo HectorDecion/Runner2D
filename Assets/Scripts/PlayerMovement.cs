@@ -8,15 +8,18 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float jumpForce = 10f;
-    [SerializeField]public float speed = 10f;
+    [SerializeField] public float jumpForce = 5000f;
+    [SerializeField]public float speed = 10000f;
+    [SerializeField] private float runningSpeed = 2000f;
+    public float fuerzaGolpe;
     private Rigidbody2D playerRB;
+    private Rigidbody2D rigidBody;
     public bool grounded;
-    [SerializeField] private float runningSpeed = 2f;
     Vector3 startPosition;
     private Animator animator;
-
     public LayerMask groundMask;
+   // private bool puedeMoverse = true;
+    
   
     private void Awake()
     {
@@ -37,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        Debug.DrawRay(this.transform.position, Vector2.down * 2.0f, Color.red);
+        Debug.DrawRay(this.transform.position, Vector2.down * 20.0f, Color.red);
+      
     }
  
     private void FixedUpdate()
@@ -48,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
             playerRB.velocity = new Vector2(runningSpeed, playerRB.velocity.y);
 
         }
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float verticalMovement = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(horizontalMovement, verticalMovement);
+       float horizontalMovement = Input.GetAxis("Horizontal");
+        //  float verticalMovement = Input.GetAxis("Vertical");
+        Vector2 movement = new Vector2(horizontalMovement, 0); //verticalMovement);
         movement.Normalize();
         GetComponent<Rigidbody2D>().velocity = movement * speed * Time.deltaTime;
         playerRB.velocity = movement * speed * Time.deltaTime;
@@ -71,23 +75,27 @@ public class PlayerMovement : MonoBehaviour
 
         void Jump()
         {
-            if(IsTouchingTheGround())
-            {
-                playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            }
-                }
- bool IsTouchingTheGround()
-    {
-        if(Physics2D.Raycast(this.transform.position,Vector2.down, 2.0f, groundMask)) 
-        {
-            grounded = true;
-            return true;
-        }
-        else 
-        {
-            grounded = false;
-            return false; 
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        //{ 
+            playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        //}
+        //  if(IsTouchingTheGround())
+        // {
+        //     playerRB.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        // }
+        //     }
+        // bool IsTouchingTheGround()
+        //    {
+        //        if(Physics2D.Raycast(this.transform.position,Vector2.down, 20.0f, groundMask)) 
+        //       {
+        //           grounded = true;
+        //           return true;
+        //       }
+        //       else 
+        //       {
+        //         grounded = false;
+        //       return false; 
+        // }
     }
     public void ResetGame()
     {
@@ -105,5 +113,48 @@ public class PlayerMovement : MonoBehaviour
        ResetGame();
         
     }
+    public void DieEnemy()
+    {
+        //Animaciones die
+        //GameManager.sharedInstance.GameOver();   //Quite esto para ver si solucionaba el error
+
+        ResetGame();
+        Destroy(gameObject);
 
     }
+    public void AplicarGolpe()
+    {
+
+    //    puedeMoverse = false;
+
+        Vector2 direccionGolpe;
+
+        if (rigidBody.velocity.x > 0)
+        {
+            direccionGolpe = new Vector2(-1, 1);
+        }
+        else
+        {
+            direccionGolpe = new Vector2(1, 1);
+        }
+
+        rigidBody.AddForce(direccionGolpe * fuerzaGolpe);
+
+        StartCoroutine(EsperarYActivarMovimiento());
+    }
+
+    IEnumerator EsperarYActivarMovimiento()
+    {
+        // Esperamos antes de comprobar si esta en el suelo.
+        yield return new WaitForSeconds(0.1f);
+
+  //      while (!EstaEnSuelo())
+    //    {
+            // Esperamos al siguiente frame.
+      //      yield return null;
+       // }
+
+        // Si ya está en suelo activamos el movimiento.
+        //puedeMoverse = true;
+    }
+}
