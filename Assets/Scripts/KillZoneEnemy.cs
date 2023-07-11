@@ -44,7 +44,6 @@ public class KillZoneEnemy : MonoBehaviour
             GameManager.Instance.PerderVida();
 
             // Aplicamos golpe al personaje.
-            other.gameObject.GetComponent<PlayerMovement>().AplicarGolpe();
 
             Invoke("ReactivarAtaque", cooldownAtaque);
         }
